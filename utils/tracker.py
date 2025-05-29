@@ -66,7 +66,7 @@ def format_diff(diff):
         for path, change in diff["values_changed"].items():
             old = change["old_value"]
             new = change["new_value"]
-            lines.append(f"~ {path} changed:")
+            lines.append(f"! {path} changed:")
             lines.append(f"  - {old}")
             lines.append(f"  + {new}")
 

@@ -24,13 +24,16 @@ async def check_update():
     try:
         updated, new_version, new_hash, diff_text = await check_for_update()
         if updated:
-            embed = discord.Embed(title="📦 Roblox Update Detected!", color=0x00FF00)
+            embed = discord.Embed(title="📦 Roblox Update Detected!", color=0x008000)
             embed.add_field(name="Roblox Version", value=f"`{new_version}`", inline=False)
             embed.add_field(name="API Hash", value=f"`{new_hash}`", inline=False)
             embed.set_footer(text="yeah we're cracking flushed all summer 💀🙏💔🥀")
 
-            if len(diff_text) <= 1024:
+            if len(diff_text) <= 1024 and len(diff_text) > 0:
                 embed.add_field(name="API Changes", value=f"```diff\n{diff_text}\n```", inline=False)
+                files = None
+            elif len(diff_text) == 0:
+                embed.add_field(name="API Changes", value="```diff\n- No changes detected\n```", inline=False)
                 files = None
             else:
                 files = [discord.File(fp=io.StringIO(diff_text), filename="diff.txt")]

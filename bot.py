@@ -3,7 +3,7 @@ import os
 import discord
 from discord.ext import tasks, commands
 from dotenv import load_dotenv
-from utils.tracker import check_for_update
+from utils.tracker import check_for_update, fetch_api_dump, load_json
 
 load_dotenv()
 
@@ -41,6 +41,13 @@ async def check_update():
             channel = await bot.fetch_channel(CHANNEL_ID)
             await channel.send(embed=embed, files=files)
             print("✅ Sent update message.")
+
+            # dump = load_json("latest_api_dump.json")
+            # if dump:
+            #     dump_file = discord.File(io.BytesIO(str(dump).encode('utf-8')), filename="latest_api_dump.json")
+            #     await channel.send(file=dump_file)
+            #     print("✅ Sent latest API dump.")
+
     except Exception as e:
         print(f"❌ Error in check_update task: {e}")
 
